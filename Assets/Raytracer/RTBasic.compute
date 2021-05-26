@@ -1,0 +1,293 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+
+struct OctBlock
+{
+    min16float3 origin;
+    min16float size;
+    min16int childIDHead;
+    min16int renderStripID;
+};
+
+struct RenderStrip
+{
+    min16int index;
+    min16int count;
+};
+
+struct RenderObject
+{
+    min16float4 data;
+    min16float3 glow;
+    min16int type;
+};
+
+RWStructuredBuffer<OctBlock> octBlockBuffer;
+RWStructuredBuffer<RenderObject> RenderList;
+RWStructuredBuffer<RenderStrip> RenderStrips;
+RWStructuredBuffer<int> arrayData;
+
+RWTexture2D<float4> Result;
+Texture2D<float4> _SkyboxTexture;
+SamplerState sampler_SkyboxTexture;
+static const float PI = 3.14159265f;
+static const float3 dirRight = float3(1,0,0);
+static const float3 dirForward = float3(0,0,1);
+static const float3 dirUp = float3(0,1,0);
+
+float4x4 _CameraToWorld;
+float4x4 _CameraInverseProjection;
+
+
+struct Ray
+{
+    min16float3 origin;
+    min16float3 direction;
+};
+
+struct RayHit
+{
+    min16float3 position;
+    min16float distance;
+    min16float3 normal;
+    min16float3 glow;
+    min16int type;
+};
+
+RayHit CreateRayHit()
+{
+    RayHit hit;
+    hit.position = float3(0.0f, 0.0f, 0.0f);
+    hit.distance = 1.#INF;
+    hit.normal = float3(0.0f, 0.0f, 0.0f);
+    hit.glow = 0;
+    hit.type = 0;
+    return hit;
+}
+
+Ray CreateRay(float3 origin, float3 direction)
+{
+    Ray ray;
+    ray.origin = origin;
+    ray.direction = direction;
+    return ray;
+}
+
+Ray CreateCameraRay(float2 uv)
+{
+    // Transform the camera origin to world space
+    float3 origin = mul(_CameraToWorld, float4(0.0f, 0.0f, 0.0f, 1.0f)).xyz;
+    
+    // Invert the perspective projection of the view-space position
+    float3 direction = mul(_CameraInverseProjection, float4(uv, 0.0f, 1.0f)).xyz;
+    // Transform the direction from camera to world space and normalize
+    direction = mul(_CameraToWorld, float4(direction, 0.0f)).xyz;
+    direction = normalize(direction);
+    return CreateRay(origin, direction);
+}
+
+min16int IsInside(min16int blockID, min16float3 origin){
+    return 
+    step(octBlockBuffer[blockID].origin.x, origin.x) * 
+    step(origin.x, octBlockBuffer[blockID].origin.x + dirRight * octBlockBuffer[blockID].size) * 
+    step(octBlockBuffer[blockID].origin.y, origin.y) * 
+    step(origin.y, octBlockBuffer[blockID].origin.y + dirRight * octBlockBuffer[blockID].size) *
+    step(octBlockBuffer[blockID].origin.z, origin.z) * 
+    step(origin.z, octBlockBuffer[blockID].origin.z + dirRight * octBlockBuffer[blockID].size);
+}
+
+void IntersectGroundPlane(Ray ray, inout RayHit bestHit)
+{
+    // Calculate distance along the ray where the ground plane is intersected
+    float t = -ray.origin.y / ray.direction.y;
+    if (t > 0 && t < bestHit.distance)
+    {
+        bestHit.distance = t;
+        bestHit.position = ray.origin + t * ray.direction;
+        bestHit.normal = float3(0.0, 1.0, 0.0);
+    }
+}
+
+bool IntersectSphere(Ray ray, inout RayHit bestHit, float4 sphere)
+{
+    // Calculate distance along the ray where the sphere is intersected
+    float3 d = ray.origin - sphere.xyz;
+    float p1 = -dot(ray.direction, d);
+    float p2sqr = p1 * p1 - dot(d, d) + sphere.w * sphere.w;
+    if (p2sqr < 0) return false;
+    float p2 = sqrt(p2sqr);
+    float t = p1 - p2;
+    if (t > 0 && t < bestHit.distance)
+    {
+        bestHit.distance = t;
+        bestHit.position = ray.origin + t * ray.direction;
+        bestHit.normal = normalize(bestHit.position - sphere.xyz);
+        return true;
+    }
+    return false;
+}
+
+
+
+min16int CurrentOctane(Ray ray){
+    min16int currentSearchBlock = 0;
+    min16int found = false;
+    // parent block whom you know contains the origin
+    for(min16int i = 0; i < 64; i++){
+        if(octBlockBuffer[currentSearchBlock].childIDHead < 0){
+            return currentSearchBlock;
+        }
+        for(min16int n = 0; n < 8; n++){
+            if(IsInside(octBlockBuffer[currentSearchBlock].childIDHead + n, ray.origin) > 0){
+                currentSearchBlock = octBlockBuffer[currentSearchBlock].childIDHead + n;
+                found = true;
+                break;
+            }
+        }
+        if(!found){
+            return 0;
+        }
+    }
+    return 0;
+}
+
+
+min16float3 GetExitPoint(min16int blockID, Ray ray){
+
+    min16float dirXVal = dot(dirRight, ray.direction);
+    min16float dirYVal = dot(dirUp, ray.direction);
+    min16float dirZVal = dot(dirForward, ray.direction);
+
+    min16float dirXLength = (((octBlockBuffer[blockID].origin.x + octBlockBuffer[blockID].size) - ray.origin.x) * step(0, dirXVal) + (octBlockBuffer[blockID].origin.x - ray.origin.x) * step(dirXVal, 0));
+    min16float dirYLength = (((octBlockBuffer[blockID].origin.y + octBlockBuffer[blockID].size) - ray.origin.y) * step(0, dirYVal) + (octBlockBuffer[blockID].origin.y - ray.origin.y) * step(dirYVal, 0));
+    min16float dirZLength = (((octBlockBuffer[blockID].origin.z + octBlockBuffer[blockID].size) - ray.origin.z) * step(0, dirZVal) + (octBlockBuffer[blockID].origin.z - ray.origin.z) * step(dirZVal, 0));
+
+    min16float xDiv = dirXLength/ dirXVal;
+    min16float yDiv = dirYLength/ dirYVal;
+    min16float zDiv = dirZLength/ dirZVal;
+
+    float smallDiv = xDiv < yDiv ? xDiv < zDiv ? xDiv : zDiv : yDiv < zDiv ? yDiv : zDiv;
+
+    return ray.origin + ray.direction * smallDiv + ray.direction * 0.001;
+}
+
+
+bool ScanContent(Ray ray, inout RayHit hit, RenderStrip idData){
+    bool state = false;
+    float bestDist = 1.#INF;
+    int bestIndex;
+    min16int hitState = 1;
+    for(min16int i = 0; i < idData.count; i++){
+        if(IntersectSphere(ray, hit, RenderList[arrayData[idData.index + i]].data)){ 
+
+    
+            hit.glow = RenderList[arrayData[idData.index + i]].glow * hitState;
+            bestDist = hit.distance * hitState + bestDist * (1 - hitState);
+            bestIndex = i * hitState + i * (1 - hitState);
+            
+            state = true;
+ 
+        }
+    }
+    hit.type = RenderList[arrayData[idData.index + bestIndex]].type;
+    return state;
+}
+
+RayHit Trace(Ray ray)
+{
+    RayHit bestHit = CreateRayHit();
+    min16int upperLimit = 8;
+
+    for(min16int i = 0; i < upperLimit; i++){
+        min16int blockID = CurrentOctane(ray);
+               
+        if(octBlockBuffer[blockID].renderStripID > -1 &&
+        ScanContent(ray, bestHit, RenderStrips[octBlockBuffer[blockID].renderStripID])) {
+            upperLimit = 0;
+            return bestHit;
+        }
+        
+        ray.origin = GetExitPoint(blockID, ray);
+    }
+
+    return bestHit;
+}
+
+float3 Shade(inout Ray ray, RayHit hit)
+{
+    if (hit.distance < 1.#INF)
+    {
+        // Return the normal
+        return dot(hit.normal, min16float3(0, 0.5, 0.5)) + 0.2;
+    }
+    else
+    {
+        // Sample the skybox and write it
+        float theta = acos(ray.direction.y) / -PI;
+        float phi = atan2(ray.direction.x, -ray.direction.z) / -PI * 0.5f;
+        return _SkyboxTexture.SampleLevel(sampler_SkyboxTexture, float2(phi, theta), 0).xyz;
+    }
+}
+
+
+
+float3 Draw(inout Ray ray)
+{
+        min16int maxLoop = 3;
+        RayHit hit;
+        min16float3 surfaceNormal = 0;
+        min16float3 sigmaGlow = 0;
+        for(min16int i = 0; i < maxLoop; i++){
+            hit = Trace(ray);
+            min16int type0 = step(0, hit.type) * step(hit.type, 0);
+            min16int type1 = step(1, hit.type) * step(hit.type, 1);
+            ray.origin = (hit.position + hit.normal * 0.001) * type0 + (hit.position - hit.normal * 0.001) * type1;
+            ray.direction = reflect(ray.direction, hit.normal) * type0 + refract(ray.direction, hit.normal, 0.00001) * type1;
+            surfaceNormal += hit.normal + step(i, 0);
+            
+            if(hit.distance > 10000) break;
+            sigmaGlow += hit.glow;
+                /*
+                if(hit.type == 0){
+                    ray.origin = hit.position + hit.normal * 0.01;
+                    ray.direction = reflect(ray.direction, hit.normal);
+                        surfaceNormal += hit.normal + step(0, i);
+                }
+                else if(hit.type == 1){
+                    ray.origin = hit.position - hit.normal * 0.01;
+                    ray.direction = refract(ray.direction, hit.normal, 0.001);
+                    surfaceNormal = ray.direction;
+                }*/
+        }
+/*
+        if(haveHit){
+            min16float3 col = ((surfaceNormal * 0.5) + 0.5) * dot(surfaceNormal, min16float3(0, 0.5, 0.5)) + 0.2;
+            float theta = acos(surfaceNormal.y) / -PI;
+            float phi = atan2(surfaceNormal.x, -surfaceNormal.z) / -PI * 0.5f;
+            return _SkyboxTexture.SampleLevel(sampler_SkyboxTexture, float2(phi, theta), 0).xyz + sigmaGlow;
+        }
+        */
+        // Sample the skybox and write it
+        min16float3 col = saturate(dot(surfaceNormal, min16float3(0, 0.5, 0.5))) ;
+        float theta = acos(ray.direction.y) / -PI;
+        float phi = atan2(ray.direction.x, -ray.direction.z) / -PI * 0.5f;
+        return _SkyboxTexture.SampleLevel(sampler_SkyboxTexture, float2(phi, theta), 0).xyz * col + sigmaGlow;
+}
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+   // Get the dimensions of the RenderTexture
+    uint width, height;
+    Result.GetDimensions(width, height);
+    // Transform pixel to [-1,1] range
+    min16float2 uv = min16float2((id.xy + min16float2(0.5f, 0.5f)) / min16float2(width, height) * 2.0f - 1.0f);
+    // Get a ray for the UVs
+    Ray ray = CreateCameraRay(uv);
+
+    Result[id.xy] = min16float4(Draw(ray), 1);
+}
+
