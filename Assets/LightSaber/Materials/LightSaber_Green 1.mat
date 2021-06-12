@@ -26,6 +26,6 @@ Material:
     m_Floats:
     - _BladeLength: 17.1
     - _GlowSpread: 4
-    - _Radi: 0
+    - _Radi: 0.19
     m_Colors: []
   m_BuildTextureStacks: []

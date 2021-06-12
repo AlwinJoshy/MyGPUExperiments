@@ -29,7 +29,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Control: 1.2
-    - _Cutoff: 0.086
+    - _Cutoff: 0
     - _ScanLength: 0.0417
     - _ScanValue: 0.1
     - _Strength: 0.33

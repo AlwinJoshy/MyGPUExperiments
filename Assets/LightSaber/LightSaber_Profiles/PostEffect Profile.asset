@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6050e2d5de785ce4d931e4dbdbf2d755, type: 3}
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -22,10 +22,10 @@ MonoBehaviour:
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0.325
+    value: 0.304
   fastMode:
     overrideState: 1
-    value: 0
+    value: 1
 --- !u!114 &-2881665656602649546
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -53,10 +53,10 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.31
+    value: 0.493
   smoothness:
     overrideState: 1
-    value: 0.82
+    value: 0.153
   roundness:
     overrideState: 1
     value: 1
@@ -70,31 +70,6 @@ MonoBehaviour:
   opacity:
     overrideState: 1
     value: 1
---- !u!114 &-1299134587251743375
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81eddfe9673c685409dd2ab1dd61553b, type: 3}
-  m_Name: Distortion
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  Magnitude:
-    overrideState: 1
-    value: 1
-  DownScaleFactor:
-    overrideState: 1
-    value: 3
-  DebugView:
-    overrideState: 1
-    value: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +87,6 @@ MonoBehaviour:
   - {fileID: 3424255020992869393}
   - {fileID: -8808284985890973527}
   - {fileID: 2439118349453441112}
-  - {fileID: -1299134587251743375}
 --- !u!114 &2439118349453441112
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -166,10 +140,10 @@ MonoBehaviour:
     value: 1
   temperature:
     overrideState: 1
-    value: 35
+    value: 56
   tint:
     overrideState: 1
-    value: 17
+    value: 40
   colorFilter:
     overrideState: 0
     value: {r: 1, g: 1, b: 1, a: 1}
@@ -178,7 +152,7 @@ MonoBehaviour:
     value: 0
   saturation:
     overrideState: 1
-    value: 8
+    value: 29
   brightness:
     overrideState: 0
     value: 0
@@ -1442,22 +1416,22 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.94
+    value: 8.5
   threshold:
     overrideState: 1
-    value: 0.37
+    value: 0.85
   softKnee:
-    overrideState: 1
+    overrideState: 0
     value: 0
   clamp:
-    overrideState: 1
+    overrideState: 0
     value: 65472
   diffusion:
     overrideState: 1
-    value: 6
+    value: 7.84
   anamorphicRatio:
     overrideState: 1
-    value: 0.9
+    value: 0
   color:
     overrideState: 1
     value: {r: 1, g: 1, b: 1, a: 1}

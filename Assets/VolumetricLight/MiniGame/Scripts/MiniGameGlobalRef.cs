@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+
+
+
 public static class MiniGameGlobalRef
 {
 
@@ -14,7 +17,7 @@ public static class MiniGameGlobalRef
 
     #region UI and Canvas
     public static MiniGameUI gameUI;
-    public static SerializedProperty uiEditLocation;
+    ///public static SerializedProperty uiEditLocation;
     #endregion
 
     #region playerData refrences
@@ -88,3 +91,5 @@ public static class MiniGameGlobalRef
     }
 
 }
+#if (UNITY_EDITOR) 
+#endif

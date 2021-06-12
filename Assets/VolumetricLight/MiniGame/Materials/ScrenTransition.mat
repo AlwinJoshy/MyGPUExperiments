@@ -24,8 +24,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _CheckerShut: -0.005840027
-    - _DiamondCover: -0.0055451896
+    - _CheckerShut: -0.0047315275
+    - _DiamondCover: -0.062697604
     - _ScreenCover: 1.23
     - _ScreenCover2: 1.7
     m_Colors:

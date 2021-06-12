@@ -88,7 +88,7 @@ Material:
     - _Color: {r: 0, g: 0.3289135, b: 0.5283019, a: 1}
     - _DangerRingColor: {r: 1, g: 0, b: 0.03794861, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FoamColor: {r: 0.9996824, g: 0.9996492, b: 0.99973786, a: 1}
-    - _HighColor: {r: 0.5996271, g: 0.94303375, b: 0.9366178, a: 1}
-    - _LowColor: {r: 0.33390477, g: 0.6705753, b: 0.6884345, a: 1}
+    - _FoamColor: {r: 0.9995193, g: 0.999469, b: 0.99960315, a: 1}
+    - _HighColor: {r: 0.5995087, g: 0.9428475, b: 0.9364037, a: 1}
+    - _LowColor: {r: 0.33388436, g: 0.67047876, b: 0.6883088, a: 1}
   m_BuildTextureStacks: []

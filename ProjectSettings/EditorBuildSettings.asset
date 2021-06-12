@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/VolumetricLight/MiniGame/Scenes/scene_3_game.unity
+    guid: 520ef7518c709a14baea0495b220fc22
   m_configObjects: {}

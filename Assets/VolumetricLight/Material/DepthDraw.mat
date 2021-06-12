@@ -79,7 +79,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _GlowPower: 0
-    - _MaxReachThrushold: 2.74
+    - _MaxReachThrushold: 2.63
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -94,7 +94,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FogColor: {r: 0.9940701, g: 0.9997545, b: 0.9090475, a: 1}
+    - _FogColor: {r: 0.9940744, g: 0.9996283, b: 0.90884894, a: 1}
     - _MistColor: {r: 0.9811321, g: 0.64987946, b: 0.3646849, a: 1}
-    - _ShadowColor: {r: 0.077918485, g: 0.22542757, b: 0.2545436, a: 1}
+    - _ShadowColor: {r: 0.077950135, g: 0.2253732, b: 0.25445452, a: 1}
   m_BuildTextureStacks: []
