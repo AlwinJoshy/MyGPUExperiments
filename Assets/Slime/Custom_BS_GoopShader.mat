@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Custom_BS_GoopShader
+  m_Shader: {fileID: 4800000, guid: 254614514042c6448b1c7ec9ce08265e, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: c71f5078d9e2f2146aa2048178a9574c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionMap:
+        m_Texture: {fileID: 2800000, guid: addba123a007f664aacc9810a21b7587, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlowMap:
+        m_Texture: {fileID: 2800000, guid: addba123a007f664aacc9810a21b7587, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _FlowSpeed: 0.28
+    - _Glossiness: 0.5
+    - _Metallic: 0
+    - _RimPower: 1.47
+    - _SpecPower: 1.86
+    - _SpecSpread: 16.2
+    - _WobbleSpeed: 0.15
+    - _WobbleStrength: 0.208
+    m_Colors:
+    - _BaseColor: {r: 0.754717, g: 0.61235446, b: 0.19508718, a: 1}
+    - _Color: {r: 0.7924528, g: 0.5830338, b: 0.17493767, a: 1}
+    - _DarkColor: {r: 0.24528301, g: 0.007867551, b: 0.007867551, a: 1}
+    - _LightColor: {r: 1, g: 0.7167768, b: 0.63584906, a: 1}
+    - _RimColor: {r: 0, g: 0.383182, b: 0.4433962, a: 0}
+    - _ShadowColor: {r: 0.5377358, g: 0.10856175, b: 0.11259635, a: 1}
+  m_BuildTextureStacks: []

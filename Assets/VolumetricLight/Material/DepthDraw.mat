@@ -72,7 +72,7 @@ Material:
     - _DitherCtrl: 0.79
     - _DstBlend: 0
     - _Exponential: 1
-    - _FogCtrl: 0.113
+    - _FogCtrl: 0.033
     - _FogMultiplier: 1
     - _FogRange: 36
     - _GlossMapScale: 1
