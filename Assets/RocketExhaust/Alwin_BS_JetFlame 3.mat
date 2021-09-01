@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Alwin_BS_JetFlame 3
+  m_Shader: {fileID: 4800000, guid: 93e99b49106b2d7458be06c044db3941, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _SpeedForceTex:
+        m_Texture: {fileID: 2800000, guid: b3f329a65824f894a82095a891f40aab, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _FlameColorMixRange: 0.22
+    - _FlameColumDisplaceRange: 0.102
+    - _FlameColumFade: 0.286
+    - _FlameColumLength: 1
+    - _FlameColumSize: 0.309
+    - _FlameColumTaper: 0
+    - _FlameCurve: 1.06
+    - _FlameCurveCtrl: -0.12
+    - _FlameFadeRange: 3
+    - _FlameOuterFade: 0.235
+    - _FlameOuterTaper: -0.55
+    - _FlameOuterTerbulance: 0.84
+    - _FlameTaper: -1.91
+    - _ForecColumCount: 8
+    - _SpeedForceFade: 0.206
+    - _SpeedForceSize: 0.648
+    - _SpeedForceSpeed: 17.3
+    - _SpeedForceTaper: -0.5
+    - _SpeedForceTerbulance: 1.07
+    m_Colors:
+    - _BaseColor: {r: 0.7169812, g: 0.33173755, b: 0, a: 1}
+    - _EndColor: {r: 0.4245283, g: 0, b: 0.42357567, a: 0.7019608}
+    - _FlameOuterColor: {r: 0.6792453, g: 0.45439315, b: 0.13072266, a: 1}
+    - _InnerColor: {r: 0.5188679, g: 0.44302058, b: 0.17328227, a: 1}
+    - _OuterColor: {r: 0, g: 0.100429624, b: 0.77254903, a: 1}
+    - _SpeedDiamondColor: {r: 0, g: 0.13091493, b: 1, a: 1}
+    - _SpeedForceColor: {r: 0.94227487, g: 0.11698109, b: 1, a: 1}
+    - _SpeedForceScale: {r: 0.63, g: 4.76, b: 0, a: 0}
+  m_BuildTextureStacks: []
