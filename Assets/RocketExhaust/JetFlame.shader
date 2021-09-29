@@ -94,7 +94,7 @@ Shader "Alwin_BS/JetFlame"
             v2f vert (appdata v)
             {
                 v2f o;
-                v.vertex.xy += v.normal.xy * tex2Dlod(_SpeedForceTex, fixed4(v.uv.x * _SpeedForceScale.x + (_Time.y * _SpeedForceSpeed), v.uv.y * _SpeedForceScale.y + _Time.y, 0, 0)) * v.vertex.z * _SpeedForceTerbulance;
+                v.vertex.xy += v.normal.xy * tex2Dlod(_SpeedForceTex, fixed4(v.uv.x * _SpeedForceScale.x + (_Time.y * _SpeedForceSpeed), v.uv.y , 0, 0)).r * v.vertex.z * _SpeedForceTerbulance;
                 v.vertex.xyz += v.normal * v.vertex.z * _SpeedForceTaper;
                 v.vertex.xy *= _SpeedForceSize;
                 o.oPos = v.vertex;
@@ -148,6 +148,7 @@ Shader "Alwin_BS/JetFlame"
             ENDCG
         }
 
+    
          Pass
         {
 
@@ -165,7 +166,7 @@ Shader "Alwin_BS/JetFlame"
             v2f vert (appdata v)
             {
                 v2f o;
-                v.vertex.xy += v.normal.xy * tex2Dlod(_SpeedForceTex, fixed4(v.uv.x * _SpeedForceScale.x + (_Time.y * _SpeedForceSpeed), v.uv.y * _SpeedForceScale.y + _Time.y, 0, 0)) * v.vertex.z * _FlameOuterTerbulance;
+                v.vertex.xy += v.normal.xy * tex2Dlod(_SpeedForceTex, fixed4(v.uv.x * _SpeedForceScale.x + (_Time.y * _SpeedForceSpeed), v.uv.y * _SpeedForceScale.y + (_Time.y * _SpeedForceSpeed), 0, 0)) * v.vertex.z * _FlameOuterTerbulance;
                 v.vertex.xyz += v.normal * v.vertex.z * _FlameOuterTaper;
                 o.oPos = v.vertex;
                 o.vertex = UnityObjectToClipPos(v.vertex);

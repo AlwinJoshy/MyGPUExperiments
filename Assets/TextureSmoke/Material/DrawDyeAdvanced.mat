@@ -43,5 +43,5 @@ Material:
     - _ValX: 0
     - _ValY: 1
     m_Colors:
-    - _Color: {r: 0.6539473, g: 0.111612596, b: 0.12872477, a: 1}
+    - _Color: {r: 0.39796025, g: 0.8259479, b: 0.090018645, a: 1}
   m_BuildTextureStacks: []

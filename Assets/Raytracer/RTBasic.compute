@@ -37,6 +37,7 @@ static const float PI = 3.14159265f;
 static const float3 dirRight = float3(1,0,0);
 static const float3 dirForward = float3(0,0,1);
 static const float3 dirUp = float3(0,1,0);
+static const float inf = 100000000000000000.0f;
 
 float4x4 _CameraToWorld;
 float4x4 _CameraInverseProjection;
@@ -61,7 +62,7 @@ RayHit CreateRayHit()
 {
     RayHit hit;
     hit.position = float3(0.0f, 0.0f, 0.0f);
-    hit.distance = 1.#INF;
+    hit.distance = inf;
     hit.normal = float3(0.0f, 0.0f, 0.0f);
     hit.glow = 0;
     hit.type = 0;
@@ -177,7 +178,7 @@ min16float3 GetExitPoint(min16int blockID, Ray ray){
 
 bool ScanContent(Ray ray, inout RayHit hit, RenderStrip idData){
     bool state = false;
-    float bestDist = 1.#INF;
+    float bestDist = inf;
     int bestIndex;
     min16int hitState = 1;
     for(min16int i = 0; i < idData.count; i++){
@@ -218,7 +219,7 @@ RayHit Trace(Ray ray)
 
 float3 Shade(inout Ray ray, RayHit hit)
 {
-    if (hit.distance < 1.#INF)
+    if (hit.distance < inf)
     {
         // Return the normal
         return dot(hit.normal, min16float3(0, 0.5, 0.5)) + 0.2;

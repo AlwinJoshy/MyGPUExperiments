@@ -33,15 +33,15 @@ Material:
     - _FlameCurve: 1.06
     - _FlameCurveCtrl: -0.12
     - _FlameFadeRange: 3
-    - _FlameOuterFade: 0.22
+    - _FlameOuterFade: 0.239
     - _FlameOuterTaper: -0.55
     - _FlameOuterTerbulance: 0.75
     - _FlameTaper: -1.91
     - _ForecColumCount: 10
     - _SpeedForceFade: 0.206
-    - _SpeedForceSize: 0.662
-    - _SpeedForceSpeed: 1.4
-    - _SpeedForceTaper: -0.5
+    - _SpeedForceSize: 0.482
+    - _SpeedForceSpeed: 9.3
+    - _SpeedForceTaper: -0.47
     - _SpeedForceTerbulance: 0.51
     m_Colors:
     - _BaseColor: {r: 0.7169812, g: 0.33173755, b: 0, a: 1}

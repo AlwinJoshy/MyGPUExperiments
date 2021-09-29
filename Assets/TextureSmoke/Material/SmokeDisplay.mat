@@ -24,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorTex:
-        m_Texture: {fileID: 2800000, guid: 015eeca9358c8334c833033af139c85a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 982f0cf0d6159424cb4aa01b8c6354dc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:

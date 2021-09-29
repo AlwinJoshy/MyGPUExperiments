@@ -65,21 +65,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _CorrectionOffset: 0
+    - _CorrectionOffset: 0.0212
     - _Cutoff: 0.5
     - _DeathLerp: 1
     - _DetailNormalMapScale: 1
     - _DitherCtrl: 0.79
     - _DstBlend: 0
-    - _Exponential: 1
-    - _FogCtrl: 0.033
+    - _Exponential: 1.64
+    - _FogCtrl: 0.134
     - _FogMultiplier: 1
-    - _FogRange: 36
+    - _FogRange: 28
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _GlowPower: 0
-    - _MaxReachThrushold: 2.63
+    - _MaxReachThrushold: 1.03
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -94,7 +94,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FogColor: {r: 0.9940744, g: 0.9996283, b: 0.90884894, a: 1}
+    - _FogColor: {r: 0.9940618, g: 0.9999961, b: 0.9094279, a: 1}
     - _MistColor: {r: 0.9811321, g: 0.64987946, b: 0.3646849, a: 1}
-    - _ShadowColor: {r: 0.077950135, g: 0.2253732, b: 0.25445452, a: 1}
+    - _ShadowColor: {r: 0.07785786, g: 0.22553173, b: 0.25471428, a: 1}
   m_BuildTextureStacks: []
