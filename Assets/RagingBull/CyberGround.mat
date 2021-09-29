@@ -27,5 +27,5 @@ Material:
     - _Spacing: 6.12
     - _Width: 0.053
     m_Colors:
-    - _Color: {r: 1, g: 0.16470587, b: 0.3986143, a: 0}
+    - _Color: {r: 1, g: 0.16470587, b: 0.48677704, a: 0}
   m_BuildTextureStacks: []
