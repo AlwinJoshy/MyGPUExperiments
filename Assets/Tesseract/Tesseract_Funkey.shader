@@ -4,6 +4,7 @@ Shader "MyTest/Tesseract_Funkey"
     {
         _Color("Color", color) = (1,1,1,1)
         _ColorB("Color B", color) = (1,1,1,1)
+        _MainTex ("Texture", 2D) = "white" {}
         _CubeSize("Cube Size", range(0,1)) = 0.5
         _EadgeThickness("Cube Edge", range(0,1)) = 0.5
     }
@@ -22,6 +23,7 @@ Shader "MyTest/Tesseract_Funkey"
 
             fixed4 _Color, _ColorB;
             fixed _CubeSize, _EadgeThickness;
+            sampler2D _MainTex;
 
             struct appdata
             {
@@ -145,6 +147,15 @@ Shader "MyTest/Tesseract_Funkey"
                 return a-b == 0 ? -1 : 1;
             }
 
+            fixed Rand(fixed co){
+                return frac(sin(dot(co, 78.233)) * 43758.5453);
+            }
+
+            fixed Rand(fixed3 co){
+                return frac(sin(dot(co, fixed3(78.233, 14.58945, 9.84623))) * 43758.5453);
+            }
+            
+
             fixed4 frag (v2f i) : SV_Target
             {
 
@@ -205,15 +216,13 @@ Shader "MyTest/Tesseract_Funkey"
                 half4 skyData = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, reflect(i.vDir, i.normal));
                 // decode cubemap data into actual color
                 half3 skyColor = DecodeHDR (skyData, unity_SpecCube0_HDR);
-
-                //return bD.color;
-                return fixed4(cubeSurfaceGPos, 0);
-                col.xyz += pow(skyColor * 1.1, 3);
-                col.xyz += pow(saturate(1 - dot(normalize(i.vDir), i.normal)), 3) * 0.8;
-                //  return col * fixed4(0,0.5,0,1);
-                //    return col;
-                //return bD.f;
-                return col;
+                fixed3 containerID = ceil(cubeSurfaceGPos + 0.5 + 0.0001);
+                fixed xYalue = Rand(containerID);
+                fixed4 color = tex2D(_MainTex, fixed2(xYalue + _Time.x,0));
+                color.xyz *= col * 2;
+                color.xyz += pow(skyColor * 1.1, 3);
+                color.xyz += pow(saturate(1 - dot(normalize(i.vDir), i.normal)), 3) * 0.8;
+                return color;
             }
             ENDCG
         }

@@ -20,15 +20,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: c4744dbac8ffae74ca8dcf6209e2cd7a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _CubeSize: 0.297
-    - _EadgeThickness: 0.091
+    - _CubeSize: 0.443
+    - _EadgeThickness: 0.025
     m_Colors:
-    - _Color: {r: 1, g: 0.33909082, b: 0, a: 1}
-    - _ColorB: {r: 0, g: 1, b: 0.9393878, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorB: {r: 1, g: 1, b: 1, a: 1}
     - _ColorCore: {r: 0, g: 0, b: 0, a: 1}
     - _ColorOut: {r: 0.754717, g: 0.63129324, b: 0.088287614, a: 1}
   m_BuildTextureStacks: []
